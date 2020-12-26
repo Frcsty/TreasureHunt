@@ -1,0 +1,23 @@
+settings:
+  lobby-starting-point:
+    world: world
+    x: 195
+    y: 117
+    z: 318
+  game-starting-point:
+    world: world
+    x: 222
+    y: 71
+    z: 347
+  map-settings:
+    map-size:
+      x: 200
+      z: 200
+
+message:
+  gameStarted: "&aThe game has started. Good luck!"
+  alreadyJoined: "&cYou have already joined the game."
+  successfullyJoined: "&aYou have joined the game!"
+  playerFoundTreasure: "&a{player-name} has found a treasure! &7(A new treasure has spawned at a random location!)"
+  gameFinished: "&aThe game has finished! &7(bellow are the standings)"
+  positionPlayer: "&f#{position}. {player-name} - {treasures-found}"

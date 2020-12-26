@@ -1,0 +1,7 @@
+name: TreasureHunt
+version: @version@
+main: com.github.frcsty.treasurehunt.TreasureHuntPlugin
+api-version: 1.13
+load: POSTWORLD
+depend:
+  - PlaceholderAPI
