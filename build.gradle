@@ -14,12 +14,14 @@ repositories {
 	maven { url "https://repo.destroystokyo.com/repository/maven-public/" }
 	maven { url "https://oss.sonatype.org/content/groups/public/" }
 	maven { url "https://repo.mattstudios.me/artifactory/public" }
+	maven { url "https://libraries.minecraft.net/" }
 }
 
 dependencies {
 	implementation "me.mattstudios.utils:matt-framework:1.4"
 	implementation "me.mattstudios:mf-msg-bukkit:2.0.2"
 
+	compileOnly "com.mojang:authlib:1.5.21"
 	compileOnly "me.clip:placeholderapi:2.10.9"
 	compileOnly "com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT"
 }
@@ -34,4 +36,8 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {
 		filter ReplaceTokens, tokens: [version: version]
 	}
+}
+
+compileJava {
+	options.encoding = "UTF-8"
 }

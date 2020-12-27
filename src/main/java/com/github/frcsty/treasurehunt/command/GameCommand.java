@@ -1,61 +1,59 @@
 package com.github.frcsty.treasurehunt.command;
 
-import com.github.frcsty.treasurehunt.TreasureHuntPlugin;
-import com.github.frcsty.treasurehunt.utils.Message;
+import com.github.frcsty.treasurehunt.game.GameController;
+import com.github.frcsty.treasurehunt.message.MessageHandler;
+import com.github.frcsty.treasurehunt.user.UserController;
+import com.github.frcsty.treasurehunt.util.settings.MapSettings;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Permission;
 import me.mattstudios.mf.annotations.SubCommand;
 import me.mattstudios.mf.base.CommandBase;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 @Command("hunt")
 public final class GameCommand extends CommandBase {
 
-    private final TreasureHuntPlugin plugin;
-    private final FileConfiguration config;
+    private final GameController controller;
+    public GameCommand(final GameController controller) {
+        this.controller = controller;
+    }
 
-    public GameCommand(final TreasureHuntPlugin plugin) {
-        this.plugin = plugin;
-        this.config = plugin.getConfig();
+    @SubCommand("join")
+    public void onJoinCommand(final Player player) {
+        final UserController userController = controller.getUserController();
+
+        if (userController.isJoined(player)) {
+            MessageHandler.ALREADY_JOINED.executeForPlayer(
+                    player
+            );
+            return;
+        }
+
+        userController.addUser(player);
+        player.teleport(MapSettings.getMapStartingLocation());
+        MessageHandler.SUCCESSFULLY_JOINED.executeForPlayer(
+                player
+        );
     }
 
     @SubCommand("start")
     @Permission("treasurehunt.command.start")
-    public void onCommand(final Player player) {
-        plugin.getManager().startGame();
-
-        Message.broadcast(
-                config.getString("message.gameStarted")
-        );
+    public void onStartCommand(final Player player, final Integer duration) {
+        controller.startGame(duration);
     }
 
     @SubCommand("stop")
     @Permission("treasurehunt.command.stop")
     public void onStopCommand(final Player player) {
-        plugin.getManager().stopGame();
-    }
-
-    @SubCommand("list")
-    @Permission("treasurehunt.command.list")
-    public void onListCommand(final Player player) {
-        plugin.getManager().getTreasureLocations().forEach((loc, block) -> Message.send(player, loc.getX() + ", " + loc.getY() + ", " + loc.getZ()));
-    }
-
-    @SubCommand("join")
-    public void onJoinCommand(final Player player) {
-        if (plugin.getManager().isJoined(player)) {
-            Message.send(
-                    player,
-                    config.getString("message.alreadyJoined")
+        if (!controller.getGameState().getGameStatus()) {
+            MessageHandler.NO_ACTIVE_GAME.executeForPlayer(
+                    player
             );
             return;
         }
 
-        plugin.getManager().addPlayer(player);
-        Message.send(
-                player,
-                config.getString("message.successfullyJoined")
-        );
+        controller.stopGame();
+        controller.getTaskController().cancelGameTask();
     }
+
 }

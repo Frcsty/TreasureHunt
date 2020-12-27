@@ -1,4 +1,4 @@
-package com.github.frcsty.treasurehunt.utils;
+package com.github.frcsty.treasurehunt.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,23 +1,40 @@
 settings:
+  treasure-amount: 5
+  standings-announcement-delay: 1 # In minutes
   lobby-starting-point:
-    world: world
     x: 195
     y: 117
     z: 318
   game-starting-point:
-    world: world
     x: 222
     y: 71
     z: 347
   map-settings:
     map-size:
-      x: 200
-      z: 200
+      x: 10
+      z: 10
+    map-world: world
+    map-height: 100
 
 message:
-  gameStarted: "&aThe game has started. Good luck!"
-  alreadyJoined: "&cYou have already joined the game."
-  successfullyJoined: "&aYou have joined the game!"
-  playerFoundTreasure: "&a{player-name} has found a treasure! &7(A new treasure has spawned at a random location!)"
-  gameFinished: "&aThe game has finished! &7(bellow are the standings)"
-  positionPlayer: "&f#{position}. {player-name} - {treasures-found}"
+  noActiveGame:
+    - "[message] &cThere is no active game!"
+  gameStarted:
+    - "[actionbarbroadcast] &fTreasure Hunt &ahas started!"
+  alreadyJoined:
+    - "[actionbar] &cYou are already in the game!"
+  successfullyJoined:
+    - "[message] &aYou have successfully joined the &fTreasure Hunt&a!"
+  playerFoundTreasure:
+    - "[broadcast] &f{player-name} &afound a treasure with &f{treasure-rarity} &ararity!"
+    - "[message] &r &8> &7You have been given &f{treasure-points} &7points, increasing your total to &f{user-points} &7points."
+  gameFinished:
+    - "[broadcast] &aThe game has finished! &7(bellow are the standings)"
+    - "[broadcast]  &f%treasurehunt_top-players_1%"
+    - "[broadcast]  &f%treasurehunt_top-players_2%"
+    - "[broadcast]  &f%treasurehunt_top-players_3%"
+  standingsAnnouncement:
+    - "[broadcast] &aThe current &fTreasure Hunt &atop &f3 &astandings are as follows:"
+    - "[broadcast]  &f%treasurehunt_top-players_1%"
+    - "[broadcast]  &f%treasurehunt_top-players_2%"
+    - "[broadcast]  &f%treasurehunt_top-players_3%"
