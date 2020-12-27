@@ -7,6 +7,7 @@ import com.github.frcsty.treasurehunt.util.action.actions.command.PermissionComm
 import com.github.frcsty.treasurehunt.util.action.actions.command.PlayerCommand;
 import com.github.frcsty.treasurehunt.util.action.actions.message.*;
 import com.github.frcsty.treasurehunt.util.action.actions.misc.PlaySound;
+import com.github.frcsty.treasurehunt.util.action.actions.misc.SpawnParticle;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.primitives.Ints;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -146,7 +147,8 @@ public final class ActionManager {
                 new PlayerChat(plugin),
                 new PlayerCommand(plugin),
                 new PlaySound(),
-                new ActionBarMessageBroadcast(plugin)
+                new ActionBarMessageBroadcast(plugin),
+                new SpawnParticle()
         ).forEach(action -> register(action, true));
     }
 

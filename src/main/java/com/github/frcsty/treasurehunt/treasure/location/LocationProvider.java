@@ -21,16 +21,18 @@ public final class LocationProvider {
                 location.getBlockZ() + RANDOM.nextDouble(-MapSettings.getMapRadiusZ(), MapSettings.getMapRadiusZ())
         );
 
-        for (int y = (int) MapSettings.getMapHeight(); y >= 0; y--) {
+        boolean valid = false;
+        for (int y = 0; y <= (int) MapSettings.getMapHeight(); y++) {
             final Block block = location.getWorld().getBlockAt(newLocation.getBlockX(), y, newLocation.getBlockZ());
 
-            if (block.getType() != Material.AIR) {
-                newLocation.setY(y + 1);
+            if (block.getType() == Material.AIR) {
+                newLocation.setY(y);
+                valid = true;
                 break;
             }
         }
 
-        if (isValidLocation(location))
+        if (isValidLocation(location) && valid)
             return newLocation;
 
         newLocation = getRandomLocation();
@@ -38,22 +40,25 @@ public final class LocationProvider {
     }
 
     private static boolean isValidLocation(final Location location) {
-        boolean containsLeaves = false;
+        boolean containsBlacklisted = false;
 
         for (int x = location.getBlockX() - 1; x <= location.getBlockX() + 1; x++) {
-            for (int y = location.getBlockY() - 1; y <= location.getBlockY() + 1; y++) {
+            for (int y = location.getBlockY() - 2; y <= location.getBlockY() + 2; y++) {
                 for (int z = location.getBlockZ() - 1; z <= location.getBlockZ() + 1; z++) {
-                    if (!location.getWorld().getBlockAt(x, y, z).getType().name().toLowerCase().contains("leaves")) {
+                    final String blockName = location.getWorld().getBlockAt(x, y, z).getType().name().toLowerCase();
+
+                    if (!blockName.contains("leaves") || !blockName.contains("planks")
+                            || !blockName.contains("stairs") || !blockName.contains("logs")) {
                         continue;
                     }
 
-                    containsLeaves = true;
+                    containsBlacklisted = true;
                     break;
                 }
             }
         }
 
-        return !containsLeaves;
+        return !containsBlacklisted;
     }
 
 }

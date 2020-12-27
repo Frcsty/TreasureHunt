@@ -14,6 +14,18 @@ public final class LocationHolder {
         this.z = z;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
     @Override
     public boolean equals(final Object object) {
         if (this == object) return true;

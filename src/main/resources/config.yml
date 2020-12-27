@@ -11,8 +11,8 @@ settings:
     z: 347
   map-settings:
     map-size:
-      x: 10
-      z: 10
+      x: 200
+      z: 200
     map-world: world
     map-height: 100
 
@@ -27,7 +27,8 @@ message:
     - "[message] &aYou have successfully joined the &fTreasure Hunt&a!"
   playerFoundTreasure:
     - "[broadcast] &f{player-name} &afound a treasure with &f{treasure-rarity} &ararity!"
-    - "[message] &r &8> &7You have been given &f{treasure-points} &7points, increasing your total to &f{user-points} &7points."
+    - "[actionbar] &a+{treasure-points} &7points &8(&7Total: &f{user-points}&8)"
+    - "[particle] CRIT_MAGIC;{treasure-location}"
   gameFinished:
     - "[broadcast] &aThe game has finished! &7(bellow are the standings)"
     - "[broadcast]  &f%treasurehunt_top-players_1%"

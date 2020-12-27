@@ -42,6 +42,8 @@ public final class TreasureHuntPlugin extends JavaPlugin {
             gameController.stopGame();
         }
 
+        gameController.getTreasureController().clearTreasures();
+
         reloadConfig();
     }
 

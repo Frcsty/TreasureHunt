@@ -5,6 +5,7 @@ import com.github.frcsty.treasurehunt.message.MessageHandler;
 import com.github.frcsty.treasurehunt.treasure.TreasureController;
 import com.github.frcsty.treasurehunt.user.UserController;
 import com.github.frcsty.treasurehunt.util.holder.TreasureHolder;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -29,14 +30,17 @@ public final class TreasureInteractListener implements Listener {
         if (block.getType() != Material.PLAYER_HEAD) return;
 
         if (!controller.getGameState().getGameStatus()) return;
+
+        final Location location = block.getLocation();
         final TreasureController treasureController = controller.getTreasureController();
-        if (treasureController.getTreasureByLocation(block.getLocation()) == null) return;
+        if (treasureController.getTreasureByLocation(location) == null) return;
 
         event.setCancelled(true);
 
         block.setType(Material.AIR);
         treasureController.addRandomTreasure();
-        final TreasureHolder treasure = treasureController.removeTreasureByLocation(block.getLocation());
+
+        final TreasureHolder treasure = treasureController.removeTreasureByLocation(location);
 
         final UserController userController = controller.getUserController();
         userController.incrementTreasureCountForUser(player, treasure.getTreasureType());
@@ -46,7 +50,8 @@ public final class TreasureInteractListener implements Listener {
                 "{player-name}", player.getName(),
                 "{treasure-rarity}", treasure.getFormattedType(),
                 "{treasure-points}", String.valueOf(treasure.getTreasureType().getPoints()),
-                "{user-points}", String.valueOf(userController.getPointsForUser(player))
+                "{user-points}", String.valueOf(userController.getPointsForUser(player)),
+                "{treasure-location}", String.format("%s %s %s", location.getBlockX(), location.getBlockY(), location.getBlockZ())
         );
     }
 

@@ -68,4 +68,7 @@ public final class TreasureController {
         this.treasures.clear();
     }
 
+    public Map<LocationHolder, TreasureHolder> getTreasures() {
+        return this.treasures;
+    }
 }
