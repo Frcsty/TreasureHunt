@@ -41,12 +41,9 @@ public final class TreasureInteractListener implements Listener {
         treasureController.addRandomTreasure();
 
         final TreasureHolder treasure = treasureController.removeTreasureByLocation(location);
-
         final UserController userController = controller.getUserController();
         userController.incrementTreasureCountForUser(player, treasure.getTreasureType());
-
-        MessageHandler.TREASURE_FOUND.executeForPlayer(
-                player,
+        MessageHandler.TREASURE_FOUND.executeForPlayer(player,
                 "{player-name}", player.getName(),
                 "{treasure-rarity}", treasure.getFormattedType(),
                 "{treasure-points}", String.valueOf(treasure.getTreasureType().getPoints()),

@@ -17,7 +17,7 @@ public final class User {
         return this.uuid;
     }
 
-    public void incrementPoints(final TreasureType type) {
+    public void incrementPoints(final TreasureType.TreasureSubType type) {
         this.points += type.getPoints();
     }
 

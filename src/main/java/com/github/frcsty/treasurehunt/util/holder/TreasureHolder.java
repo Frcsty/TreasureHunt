@@ -6,10 +6,10 @@ import org.bukkit.block.Block;
 
 public final class TreasureHolder {
 
-    private final TreasureType type;
+    private final TreasureType.TreasureSubType type;
     private final Block block;
 
-    public TreasureHolder(final Block block, final TreasureType type) {
+    public TreasureHolder(final Block block, final TreasureType.TreasureSubType type) {
         this.block = block;
         this.type = type;
     }
@@ -18,12 +18,12 @@ public final class TreasureHolder {
         return this.block;
     }
 
-    public TreasureType getTreasureType() {
+    public TreasureType.TreasureSubType getTreasureType() {
         return this.type;
     }
 
     public String getFormattedType() {
-        return WordUtils.capitalize(type.name().replace("_", " ").toLowerCase());
+        return WordUtils.capitalize(type.getType());
     }
 
 }

@@ -18,7 +18,7 @@ public final class TreasureController {
 
     public void addRandomTreasure() {
         final Location location = LocationProvider.getRandomLocation();
-        final TreasureType type = TreasureType.getRandomTreasureType();
+        final TreasureType.TreasureSubType type = TreasureType.getRandomTreasureType();
 
         final Block treasureBlock = TextureController.getTexturedBlock(location, type);
 

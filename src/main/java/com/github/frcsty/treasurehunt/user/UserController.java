@@ -32,7 +32,7 @@ public final class UserController {
         return this.users.get(player.getUniqueId()) != null;
     }
 
-    public void incrementTreasureCountForUser(final Player player, final TreasureType type) {
+    public void incrementTreasureCountForUser(final Player player, final TreasureType.TreasureSubType type) {
         final User user = getUser(player);
 
         user.incrementPoints(type);
@@ -56,7 +56,7 @@ public final class UserController {
 
             final FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             this.users.forEach((uuid, user) ->
-                configuration.set("results." + uuid.toString(), user.getPoints())
+                    configuration.set("results." + uuid.toString(), user.getPoints())
             );
 
             configuration.save(file);

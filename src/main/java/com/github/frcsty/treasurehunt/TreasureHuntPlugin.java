@@ -4,6 +4,7 @@ import com.github.frcsty.treasurehunt.command.GameCommand;
 import com.github.frcsty.treasurehunt.game.GameController;
 import com.github.frcsty.treasurehunt.listener.PlayerListener;
 import com.github.frcsty.treasurehunt.listener.TreasureInteractListener;
+import com.github.frcsty.treasurehunt.treasure.type.TreasureType;
 import com.github.frcsty.treasurehunt.util.action.ActionManager;
 import com.github.frcsty.treasurehunt.util.settings.MapSettings;
 import me.mattstudios.mf.base.CommandManager;
@@ -34,6 +35,7 @@ public final class TreasureHuntPlugin extends JavaPlugin {
         );
 
         new Placeholders(gameController).register();
+        TreasureType.init();
     }
 
     @Override

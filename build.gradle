@@ -1,12 +1,12 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-	id "com.github.johnrengelman.shadow" version "6.0.0"
+	id "com.github.johnrengelman.shadow" version "6.1.0"
 	id "java"
 }
 
-group = "com.github.frcsty"
-version = "1.0.0-Alpha"
+group = "com.github.frcsty.treasurehunt"
+version = "1.0.3-Release"
 
 repositories {
 	mavenCentral()

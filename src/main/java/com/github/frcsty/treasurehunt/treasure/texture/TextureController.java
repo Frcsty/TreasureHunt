@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public final class TextureController {
 
-    public static Block getTexturedBlock(final Location location, final TreasureType type) {
+    public static Block getTexturedBlock(final Location location, final TreasureType.TreasureSubType type) {
         final Block block = location.getBlock();
 
         block.setType(Material.PLAYER_HEAD);
@@ -25,7 +25,7 @@ public final class TextureController {
         return block;
     }
 
-    private static Skull getTexturedMeta(final Skull skullMeta, final TreasureType type) {
+    private static Skull getTexturedMeta(final Skull skullMeta, final TreasureType.TreasureSubType type) {
         final GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         profile.getProperties().put("textures", new Property("textures", type.getTexture()));
 

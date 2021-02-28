@@ -1,6 +1,7 @@
 package com.github.frcsty.treasurehunt.util.action.actions.misc;
 
 import com.github.frcsty.treasurehunt.util.action.Action;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -21,12 +22,12 @@ public final class SpawnParticle implements Action {
         final String[] coords = args[1].split(" ");
 
         final Location location = player.getLocation();
-        location.setX(Integer.valueOf(coords[0]));
-        location.setY(Integer.valueOf(coords[1]));
-        location.setZ(Integer.valueOf(coords[2]));
+        location.setX(Integer.parseInt(coords[0].trim()));
+        location.setY(Integer.parseInt(coords[1].trim()));
+        location.setZ(Integer.parseInt(ChatColor.stripColor(coords[2].trim())));
 
         world.spawnParticle(
-                Particle.valueOf(args[0].toUpperCase()),
+                Particle.valueOf(args[0].trim().toUpperCase()),
                 location,
                 2
         );

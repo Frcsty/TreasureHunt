@@ -55,7 +55,7 @@ public final class GameController {
 
                 stopGame();
             }
-        }.runTaskLater(plugin, duration * 20), true);
+        }.runTaskLater(plugin, duration * 20L), true);
     }
 
     public void stopGame() {

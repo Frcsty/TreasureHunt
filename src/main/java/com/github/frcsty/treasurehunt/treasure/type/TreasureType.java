@@ -1,34 +1,87 @@
 package com.github.frcsty.treasurehunt.treasure.type;
 
+import com.github.frcsty.treasurehunt.TreasureHuntPlugin;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SplittableRandom;
 
-public enum TreasureType {
-
-    COMMON(1, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTAzYmQwMDQyMTcyOWNkNjM1Y2QzYjQ4MjQzNDMwYWQ0N2NmNzA3MDE4YTU5MTZmZjU5NTQ5ZDVlY2Q2Zjg3OSJ9fX0="),
-    UNCOMMON(2, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjNiYTdiYzhlM2MwOTNiZDQ4YzFmNzdiZjQ4ZTM1YmZhMGVhYzlhYjQ4ZDBhZDEzZWJkOWUzYzIyZjcxYWZhIn19fQ=="),
-    RARE(3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmU2ZTY1MmFkYzBhNGY1YmY0MmE3ZjhkOGM3Njk4YjFlYWI4YTZiYzA5YWUzZjJkNzM5NDZiN2UzNTU1MDQ3In19fQ=="),
-    LEGENDARY(5, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM5YjRmYzU5ODZjMDI1ZGY0ZTQxMTc4MmJhZDg4ZTVkYTBkNzUwMWZmMmQ5OWNkZmM1MjIyNmZlYmU5MmQifX19");
+public final class TreasureType {
 
     private static final SplittableRandom RANDOM = new SplittableRandom();
+    private static final TreasureHuntPlugin PLUGIN = JavaPlugin.getPlugin(TreasureHuntPlugin.class);
+    private static final List<TreasureSubType> TREASURE_TYPES = new ArrayList<>();
 
-    private final int points;
-    private final String texture;
+    public static void init() {
+        final FileConfiguration configuration = PLUGIN.getConfig();
+        final ConfigurationSection section = configuration.getConfigurationSection("treasures");
+        if (section == null) {
+            throw new RuntimeException("Configuration Section for Treasure Types is null!");
+        }
 
-    TreasureType(final int points, final String texture) {
-        this.points = points;
-        this.texture = texture;
+        for (final String key : section.getKeys(false)) {
+            if (key.equals("chance-range")) continue;
+
+            final String texture = section.getString(String.format("%s.texture", key));
+            final int points = section.getInt(String.format("%s.points", key));
+            final String chance = section.getString(String.format("%s.chance", key));
+
+            TREASURE_TYPES.add(new TreasureSubType(
+                    key, points, texture, chance
+            ));
+        }
     }
 
-    public static TreasureType getRandomTreasureType() {
-        return values()[RANDOM.nextInt(0, values().length)];
+    public static TreasureSubType getRandomTreasureType() {
+        final int chance = RANDOM.nextInt(0, PLUGIN.getConfig().getInt("treasures.chance-range") + 1);
+        TreasureSubType result = null;
+
+        for (final TreasureSubType treasure : TREASURE_TYPES) {
+            final String[] components = treasure.getChance().split(";");
+
+            final int from = Integer.parseInt(components[0]);
+            final int to = Integer.parseInt(components[1]);
+            if (chance > from && chance <= to) {
+                result = treasure;
+                break;
+            }
+        }
+
+        return result == null ? TREASURE_TYPES.get(0) : result;
     }
 
-    public int getPoints() {
-        return this.points;
-    }
+    public static class TreasureSubType {
+        private final String type;
+        private final int points;
+        private final String texture;
+        private final String chance;
 
-    public String getTexture() {
-        return this.texture;
+        public TreasureSubType(final String type, final int points, final String texture, final String chance) {
+            this.type = type;
+            this.points = points;
+            this.texture = texture;
+            this.chance = chance;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+
+        public int getPoints() {
+            return this.points;
+        }
+
+        public String getTexture() {
+            return this.texture;
+        }
+
+        String getChance() {
+            return this.chance;
+        }
+
     }
 
 }
