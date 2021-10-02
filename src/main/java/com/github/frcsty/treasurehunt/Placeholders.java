@@ -40,7 +40,7 @@ final class Placeholders extends PlaceholderExpansion {
         }
 
         final LinkedList<User> sortedUsers = Sort.getSortedPlayers(controller.getUserController());
-        final int position = Integer.valueOf(args[1]);
+        final int position = Integer.parseInt(args[1]);
 
         User user;
         try {
