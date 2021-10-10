@@ -16,7 +16,9 @@ public enum MessageHandler {
     GAME_FINISHED("message.gameFinished"),
     SUCCESSFULLY_JOINED("message.successfullyJoined"),
     STANDINGS_ANNOUNCEMENT("message.standingsAnnouncement"),
-    NO_ACTIVE_GAME("message.noActiveGame");
+    NO_ACTIVE_GAME("message.noActiveGame"),
+    GAME_IS_ACTIVE("message.gameIsActive")
+    ;
 
     private final TreasureHuntPlugin plugin = JavaPlugin.getPlugin(TreasureHuntPlugin.class);
     private final String messagePath;

@@ -36,6 +36,8 @@ message:
     - "[message] &cPočakaj da bo na voljo odprta igra!"
   gameStarted:
     - "[actionbarbroadcast][delay=1s] &d| &fEaster Hunt se je začel &d|"
+  gameIsActive:
+    - "[message] &cNemoreš začeti igre, ker je že aktivna!"
   alreadyJoined:
     - "[actionbar] &cSi že v igri!"
   successfullyJoined:

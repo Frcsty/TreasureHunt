@@ -6,28 +6,30 @@ import com.github.frcsty.treasurehunt.util.Sort;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 
 final class Placeholders extends PlaceholderExpansion {
 
     private final GameController controller;
+
     Placeholders(final GameController controller) {
         this.controller = controller;
     }
 
     @Override
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return "1.0.0-Alpha";
     }
 
     @Override
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return "Frcsty";
     }
 
     @Override
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return "treasurehunt";
     }
 

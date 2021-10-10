@@ -1,5 +1,5 @@
 name: TreasureHunt
-version: 1.0.3-Release
+version: 1.0.4-Release
 main: com.github.frcsty.treasurehunt.TreasureHuntPlugin
 api-version: 1.13
 load: POSTWORLD

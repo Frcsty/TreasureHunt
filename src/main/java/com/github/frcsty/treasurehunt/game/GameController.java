@@ -13,7 +13,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public final class GameController {
 
-    private final GameState gameState = new GameState();
     private final UserController userController = new UserController();
     private final TreasureController treasureController = new TreasureController();
     private final TaskController taskController = new TaskController(this);
@@ -25,7 +24,7 @@ public final class GameController {
     }
 
     public void startGame(final int duration) {
-        this.gameState.setGameStatus(true);
+        GameState.setGameStatus(GameState.ENABLED);
 
         MessageHandler.GAME_STARTED.executeForPlayer(
                 null
@@ -48,7 +47,7 @@ public final class GameController {
         taskController.setGameTask(new BukkitRunnable() {
             @Override
             public void run() {
-                if (!gameState.getGameStatus()) {
+                if (!GameState.isInMotion()) {
                     cancel();
                     return;
                 }
@@ -59,7 +58,7 @@ public final class GameController {
     }
 
     public void stopGame() {
-        this.gameState.setGameStatus(false);
+        GameState.setGameStatus(GameState.DISABLED);
 
         MessageHandler.GAME_FINISHED.executeForPlayer(
                 null
@@ -67,10 +66,6 @@ public final class GameController {
 
         treasureController.clearTreasures();
         userController.saveDataToFile(plugin);
-    }
-
-    public GameState getGameState() {
-        return this.gameState;
     }
 
     public UserController getUserController() {

@@ -1,6 +1,7 @@
 package com.github.frcsty.treasurehunt.listener;
 
 import com.github.frcsty.treasurehunt.game.GameController;
+import com.github.frcsty.treasurehunt.game.GameState;
 import com.github.frcsty.treasurehunt.util.settings.MapSettings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +20,7 @@ public final class PlayerListener implements Listener  {
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        if (controller.getGameState().getGameStatus()) {
+        if (GameState.isInMotion()) {
             player.teleport(MapSettings.getMapLobbyLocation());
             return;
         }

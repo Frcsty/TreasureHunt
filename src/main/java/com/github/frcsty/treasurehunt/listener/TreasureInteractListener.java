@@ -1,6 +1,7 @@
 package com.github.frcsty.treasurehunt.listener;
 
 import com.github.frcsty.treasurehunt.game.GameController;
+import com.github.frcsty.treasurehunt.game.GameState;
 import com.github.frcsty.treasurehunt.message.MessageHandler;
 import com.github.frcsty.treasurehunt.treasure.TreasureController;
 import com.github.frcsty.treasurehunt.user.UserController;
@@ -29,7 +30,7 @@ public final class TreasureInteractListener implements Listener {
         if (block == null) return;
         if (block.getType() != Material.PLAYER_HEAD) return;
 
-        if (!controller.getGameState().getGameStatus()) return;
+        if (!GameState.isInMotion()) return;
 
         final Location location = block.getLocation();
         final TreasureController treasureController = controller.getTreasureController();

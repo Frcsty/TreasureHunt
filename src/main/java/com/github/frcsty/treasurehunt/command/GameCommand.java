@@ -1,6 +1,7 @@
 package com.github.frcsty.treasurehunt.command;
 
 import com.github.frcsty.treasurehunt.game.GameController;
+import com.github.frcsty.treasurehunt.game.GameState;
 import com.github.frcsty.treasurehunt.message.MessageHandler;
 import com.github.frcsty.treasurehunt.user.UserController;
 import com.github.frcsty.treasurehunt.util.Color;
@@ -41,7 +42,10 @@ public final class GameCommand extends CommandBase {
     @SubCommand("start")
     @Permission("treasurehunt.command.start")
     public void onStartCommand(final Player player, final Integer duration) {
-        if (controller.getGameState().getGameStatus()) {
+        if (GameState.isInMotion()) {
+            MessageHandler.GAME_IS_ACTIVE.executeForPlayer(
+                    player
+            );
             return;
         }
 
@@ -51,7 +55,7 @@ public final class GameCommand extends CommandBase {
     @SubCommand("stop")
     @Permission("treasurehunt.command.stop")
     public void onStopCommand(final Player player) {
-        if (!controller.getGameState().getGameStatus()) {
+        if (!GameState.isInMotion()) {
             MessageHandler.NO_ACTIVE_GAME.executeForPlayer(
                     player
             );

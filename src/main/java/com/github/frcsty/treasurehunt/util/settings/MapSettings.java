@@ -22,11 +22,6 @@ public final class MapSettings {
         mapHeight = configuration.getInt("settings.map-settings.map-height");
 
         final String worldString = configuration.getString("settings.map-settings.map-world", "world");
-
-        if (worldString == null) {
-            world = Bukkit.getWorlds().get(0);
-            return;
-        }
         world = Bukkit.getWorld(worldString);
 
         mapLobbyLocation = new Location(

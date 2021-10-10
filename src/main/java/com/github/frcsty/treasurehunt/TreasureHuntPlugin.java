@@ -2,6 +2,7 @@ package com.github.frcsty.treasurehunt;
 
 import com.github.frcsty.treasurehunt.command.GameCommand;
 import com.github.frcsty.treasurehunt.game.GameController;
+import com.github.frcsty.treasurehunt.game.GameState;
 import com.github.frcsty.treasurehunt.listener.PlayerListener;
 import com.github.frcsty.treasurehunt.listener.TreasureInteractListener;
 import com.github.frcsty.treasurehunt.treasure.type.TreasureType;
@@ -40,7 +41,7 @@ public final class TreasureHuntPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (gameController.getGameState().getGameStatus()) {
+        if (GameState.isInMotion()) {
             gameController.stopGame();
         }
 
