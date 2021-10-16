@@ -35,16 +35,15 @@ message:
   noActiveGame:
     - "[message] &cPočakaj da bo na voljo odprta igra!"
   gameStarted:
-    - "[actionbarbroadcast][delay=1s] &d| &fEaster Hunt se je začel &d|"
+    - "[delay=1s][actionbarbroadcast] &d| &fEaster Hunt se je začel &d|"
   gameIsActive:
     - "[message] &cNemoreš začeti igre, ker je že aktivna!"
   alreadyJoined:
-    - "[actionbar] &cSi že v igri!"
+    - "[actionbarmessage] &cSi že v igri!"
   successfullyJoined:
     - "[message] &aUspešno si se pridružil &fEaster Hunt&a-u!"
   playerFoundTreasure:
-    - "[actionbar] &a+{treasure-points} &8(&f{user-points}&8)"
-    - "[particle] CRIT_MAGIC;{treasure-location}"
+    - "[actionbarmessage] &a+{treasure-points} &8(&f{user-points}&8)"
   gameFinished:
     - "[broadcast] &aIgra se je končala! &7(spodaj so rezultati)"
     - "[broadcast]  &f%treasurehunt_top-players_1%"

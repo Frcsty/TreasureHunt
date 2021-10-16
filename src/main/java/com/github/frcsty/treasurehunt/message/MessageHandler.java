@@ -33,7 +33,7 @@ public enum MessageHandler {
 
     public void executeForPlayer(final Player player, final String... replacements) {
         final List<String> parsed = Color.parse(player, Replace.replaceList(getMessageActions(), replacements));
-        plugin.getActionManager().execute(player, parsed);
+        plugin.getActionHandler().execute(player, parsed);
     }
 
 }

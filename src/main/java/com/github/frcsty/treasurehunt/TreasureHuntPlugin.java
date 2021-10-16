@@ -1,12 +1,12 @@
 package com.github.frcsty.treasurehunt;
 
+import com.github.frcsty.frozenactions.wrapper.ActionHandler;
 import com.github.frcsty.treasurehunt.command.GameCommand;
 import com.github.frcsty.treasurehunt.game.GameController;
 import com.github.frcsty.treasurehunt.game.GameState;
 import com.github.frcsty.treasurehunt.listener.PlayerListener;
 import com.github.frcsty.treasurehunt.listener.TreasureInteractListener;
 import com.github.frcsty.treasurehunt.treasure.type.TreasureType;
-import com.github.frcsty.treasurehunt.util.action.ActionManager;
 import com.github.frcsty.treasurehunt.util.settings.MapSettings;
 import me.mattstudios.mf.base.CommandManager;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public final class TreasureHuntPlugin extends JavaPlugin {
 
-    private final ActionManager actionManager = new ActionManager(this);
+    private final ActionHandler actionHandler = new ActionHandler(this);
     private final GameController gameController = new GameController(this);
 
     @Override
@@ -34,6 +34,8 @@ public final class TreasureHuntPlugin extends JavaPlugin {
         commandManager.register(
                 new GameCommand(gameController)
         );
+
+        this.actionHandler.loadDefaults(true);
 
         new Placeholders(gameController).register();
         TreasureType.init();
@@ -54,8 +56,8 @@ public final class TreasureHuntPlugin extends JavaPlugin {
         Arrays.stream(listeners).forEach(it -> getServer().getPluginManager().registerEvents(it, this));
     }
 
-    public ActionManager getActionManager() {
-        return this.actionManager;
+    public ActionHandler getActionHandler() {
+        return this.actionHandler;
     }
 
     public GameController getGameController() {

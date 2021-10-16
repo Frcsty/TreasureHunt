@@ -5,6 +5,12 @@ plugins {
 	id "java"
 }
 
+repositories {
+	flatDir {
+		dirs "libs"
+	}
+}
+
 group = "com.github.frcsty.treasurehunt"
 version = "1.0.4-Release"
 
@@ -18,7 +24,9 @@ repositories {
 }
 
 dependencies {
-	implementation 'me.mattstudios.utils:matt-framework:1.4.6'
+	implementation name: "FrozenActions.1.0.1"
+
+	implementation "me.mattstudios.utils:matt-framework:1.4.6"
 	implementation "me.mattstudios:mf-msg-bukkit:2.0.2"
 
 	compileOnly "com.mojang:authlib:1.5.21"
@@ -29,7 +37,7 @@ dependencies {
 shadowJar {
     relocate "me.mattstudios.mf", "${project.group}.library.mf"
 
-	archiveFileName.set("TreasureHunt.jar")
+	archiveFileName.set("TreasureHunt-${project.version}.jar")
 }
 
 processResources {

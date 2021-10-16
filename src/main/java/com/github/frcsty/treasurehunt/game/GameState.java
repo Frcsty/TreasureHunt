@@ -1,15 +1,14 @@
 package com.github.frcsty.treasurehunt.game;
 
-public enum GameState {
+public final class GameState {
 
-    ENABLED,
-    DISABLED
-    ;
+    public static final boolean ENABLED = true;
+    public static final boolean DISABLED = false;
 
-    private static GameState currentState = GameState.DISABLED;
+    private static boolean currentState = false;
 
-    public static boolean isInMotion() { return currentState == ENABLED; }
+    public static boolean isInMotion() { return currentState; }
 
-    public static void setGameStatus(final GameState state) { currentState = state; }
+    public static void setGameStatus(final boolean state) { currentState = state; }
 
 }

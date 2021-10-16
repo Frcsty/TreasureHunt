@@ -49,7 +49,8 @@ public final class TreasureInteractListener implements Listener {
                 "{treasure-rarity}", treasure.getFormattedType(),
                 "{treasure-points}", String.valueOf(treasure.getTreasureType().getPoints()),
                 "{user-points}", String.valueOf(userController.getPointsForUser(player)),
-                "{treasure-location}", String.format("%s %s %s", location.getBlockX(), location.getBlockY(), location.getBlockZ())
+                "{treasure-location}", String.format("%s %s %s", location.getBlockX(), location.getBlockY(), location.getBlockZ()),
+                "{treasure-location-stringed}", String.format("%s;%s;%s", location.getBlockX(), location.getBlockY(), location.getBlockZ())
         );
     }
 
