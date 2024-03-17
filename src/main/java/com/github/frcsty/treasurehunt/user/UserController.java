@@ -55,9 +55,10 @@ public final class UserController {
                 file.createNewFile();
 
             final FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            this.users.forEach((uuid, user) ->
-                    configuration.set("results." + uuid.toString(), user.getPoints())
-            );
+            this.users.forEach((uuid, user) -> {
+                configuration.set("results." + uuid.toString() + ".points", user.getPoints());
+                configuration.set("results." + uuid.toString() + ".name", user.getName());
+            });
 
             configuration.save(file);
         } catch (final IOException ex) {

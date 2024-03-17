@@ -21,6 +21,7 @@ public final class Replace {
             }
             replacedLore.add(line);
         }
+
         return replacedLore;
     }
 

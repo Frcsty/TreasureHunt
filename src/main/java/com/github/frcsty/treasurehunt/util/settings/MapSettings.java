@@ -9,7 +9,8 @@ public final class MapSettings {
 
     private static int mapRadiusX;
     private static int mapRadiusZ;
-    private static int mapHeight;
+    private static int mapHeightMin;
+    private static int mapHeightMax;
 
     private static World world;
 
@@ -19,7 +20,8 @@ public final class MapSettings {
     public static void configure(final FileConfiguration configuration) {
         mapRadiusX = configuration.getInt("settings.map-settings.map-size.x");
         mapRadiusZ = configuration.getInt("settings.map-settings.map-size.z");
-        mapHeight = configuration.getInt("settings.map-settings.map-height");
+        mapHeightMin = configuration.getInt("settings.map-settings.map-height-min");
+        mapHeightMax = configuration.getInt("settings.map-settings.map-height-max");
 
         final String worldString = configuration.getString("settings.map-settings.map-world", "world");
         world = Bukkit.getWorld(worldString);
@@ -47,8 +49,12 @@ public final class MapSettings {
         return mapRadiusZ;
     }
 
-    public static double getMapHeight() {
-        return mapHeight;
+    public static int getMapHeightMin() {
+        return mapHeightMin;
+    }
+
+    public static int getMapHeightMax() {
+        return mapHeightMax;
     }
 
     public static World getMapWorld() {
@@ -59,7 +65,7 @@ public final class MapSettings {
         return mapLobbyLocation;
     }
 
-    public static Location getMapStartingLocation() {
-        return mapStartingLocation;
+    public static Location getMapStartingLocation(final World world) {
+        return new Location(world, mapStartingLocation.getX(), mapStartingLocation.getY(), mapStartingLocation.getZ());
     }
 }

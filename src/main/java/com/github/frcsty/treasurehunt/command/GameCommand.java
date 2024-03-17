@@ -4,9 +4,7 @@ import com.github.frcsty.treasurehunt.game.GameController;
 import com.github.frcsty.treasurehunt.game.GameState;
 import com.github.frcsty.treasurehunt.message.MessageHandler;
 import com.github.frcsty.treasurehunt.user.UserController;
-import com.github.frcsty.treasurehunt.util.Color;
 import com.github.frcsty.treasurehunt.util.settings.MapSettings;
-import me.clip.placeholderapi.libs.JSONMessage;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Permission;
 import me.mattstudios.mf.annotations.SubCommand;
@@ -33,7 +31,7 @@ public final class GameCommand extends CommandBase {
         }
 
         userController.addUser(player);
-        player.teleport(MapSettings.getMapStartingLocation());
+        player.teleport(MapSettings.getMapStartingLocation(MapSettings.getMapWorld()));
         MessageHandler.SUCCESSFULLY_JOINED.executeForPlayer(
                 player
         );
@@ -49,7 +47,7 @@ public final class GameCommand extends CommandBase {
             return;
         }
 
-        controller.startGame(duration);
+        controller.startGame(player.getWorld(), duration);
     }
 
     @SubCommand("stop")
@@ -64,19 +62,6 @@ public final class GameCommand extends CommandBase {
 
         controller.stopGame();
         controller.getTaskController().cancelGameTask();
-    }
-
-    @SubCommand("list")
-    @Permission("treasurehunt.command.list")
-    public void onListCommand(final Player player) {
-        controller.getTreasureController().getTreasures().forEach((loc, treasure) -> {
-            final JSONMessage msg = JSONMessage.create(
-                    Color.parse(String.format("&f%s&7, &f%s&7, &f%s&7, - &fRarity&7: &f%s", loc.getX(), loc.getY(), loc.getZ(), treasure.getFormattedType()))
-            );
-
-            msg.runCommand(String.format("/tp %s %s %s", loc.getX(), loc.getY(), loc.getZ()));
-            msg.send(player);
-        });
     }
 
 }

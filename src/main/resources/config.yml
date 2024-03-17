@@ -1,20 +1,22 @@
 settings:
-  treasure-amount: 5
-  standings-announcement-delay: 1 # In minutes
-  lobby-starting-point:
-    x: 195
-    y: 117
-    z: 318
-  game-starting-point:
-    x: 222
-    y: 71
-    z: 347
+  treasure-amount: 5 # The amount of treasures spawned that can exist at the same time
+  standings-announcement-delay: 1 # The delay in minutes for which the standings should be announced
+  lobby-starting-point: # A point where the players get spawned when joining the game
+    x: 78.5
+    y: 65
+    z: 178.5
+  game-starting-point: # A point where the players all start from when the game starts
+    x: 78.5
+    y: 65
+    z: 178.5
   map-settings:
     map-size:
       x: 10
       z: 10
     map-world: world
-    map-height: 100
+    # World spawn height settings (treasure spawn)
+    map-height-max: 66
+    map-height-min: 63
 
 treasures:
   chance-range: 1000

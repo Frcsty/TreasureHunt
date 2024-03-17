@@ -1,7 +1,7 @@
 package com.github.frcsty.treasurehunt.util.holder;
 
 import com.github.frcsty.treasurehunt.treasure.type.TreasureType;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.block.Block;
 
 public final class TreasureHolder {

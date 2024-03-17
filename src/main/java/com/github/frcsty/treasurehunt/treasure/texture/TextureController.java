@@ -26,7 +26,7 @@ public final class TextureController {
     }
 
     private static Skull getTexturedMeta(final Skull skullMeta, final TreasureType.TreasureSubType type) {
-        final GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        final GameProfile profile = new GameProfile(UUID.randomUUID(), "Frcsty");
         profile.getProperties().put("textures", new Property("textures", type.getTexture()));
 
         try {

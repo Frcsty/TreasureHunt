@@ -8,8 +8,11 @@ import com.github.frcsty.treasurehunt.user.UserController;
 import com.github.frcsty.treasurehunt.util.settings.MapSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class GameController {
 
@@ -17,14 +20,17 @@ public final class GameController {
     private final TreasureController treasureController = new TreasureController();
     private final TaskController taskController = new TaskController(this);
 
+    private final AtomicLong countdown = new AtomicLong(0L);
+
     private final TreasureHuntPlugin plugin;
 
     public GameController(final TreasureHuntPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public void startGame(final int duration) {
+    public void startGame(final World world, final int duration) {
         GameState.setGameStatus(GameState.ENABLED);
+        this.countdown.set(System.currentTimeMillis() + (duration * 1000L));
 
         MessageHandler.GAME_STARTED.executeForPlayer(
                 null
@@ -37,7 +43,7 @@ public final class GameController {
             final Player player = offlinePlayer.getPlayer();
             if (player == null) return;
 
-            player.teleport(MapSettings.getMapStartingLocation());
+            player.teleport(MapSettings.getMapStartingLocation(world));
         });
 
         treasureController.addInitialTreasures(
@@ -55,6 +61,8 @@ public final class GameController {
                 stopGame();
             }
         }.runTaskLater(plugin, duration * 20L), true);
+
+        treasureController.initializeNotification(plugin);
     }
 
     public void stopGame() {
@@ -66,6 +74,11 @@ public final class GameController {
 
         treasureController.clearTreasures();
         userController.saveDataToFile(plugin);
+        this.countdown.set(0L);
+    }
+
+    public AtomicLong getCountdown() {
+        return this.countdown;
     }
 
     public UserController getUserController() {

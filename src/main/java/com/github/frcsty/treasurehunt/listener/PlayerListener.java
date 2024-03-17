@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public final class PlayerListener implements Listener  {
+public final class PlayerListener implements Listener {
 
     private final GameController controller;
 
@@ -20,12 +20,10 @@ public final class PlayerListener implements Listener  {
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        if (GameState.isInMotion()) {
-            player.teleport(MapSettings.getMapLobbyLocation());
-            return;
+        if (!controller.getUserController().isJoined(player)) {
+            controller.getUserController().addUser(player);
         }
 
-        controller.getUserController().addUser(player);
         player.teleport(MapSettings.getMapLobbyLocation());
     }
 

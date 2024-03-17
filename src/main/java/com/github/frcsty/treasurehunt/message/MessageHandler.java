@@ -1,7 +1,6 @@
 package com.github.frcsty.treasurehunt.message;
 
 import com.github.frcsty.treasurehunt.TreasureHuntPlugin;
-import com.github.frcsty.treasurehunt.util.Color;
 import com.github.frcsty.treasurehunt.util.Replace;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,8 +16,7 @@ public enum MessageHandler {
     SUCCESSFULLY_JOINED("message.successfullyJoined"),
     STANDINGS_ANNOUNCEMENT("message.standingsAnnouncement"),
     NO_ACTIVE_GAME("message.noActiveGame"),
-    GAME_IS_ACTIVE("message.gameIsActive")
-    ;
+    GAME_IS_ACTIVE("message.gameIsActive");
 
     private final TreasureHuntPlugin plugin = JavaPlugin.getPlugin(TreasureHuntPlugin.class);
     private final String messagePath;
@@ -32,8 +30,11 @@ public enum MessageHandler {
     }
 
     public void executeForPlayer(final Player player, final String... replacements) {
-        final List<String> parsed = Color.parse(player, Replace.replaceList(getMessageActions(), replacements));
-        plugin.getActionHandler().execute(player, parsed);
+        final List<String> parsed = Replace.replaceList(this.getMessageActions(), replacements);
+
+        for (final String line : parsed) {
+            this.plugin.getActionHandler().executeActions(player, line);
+        }
     }
 
 }
